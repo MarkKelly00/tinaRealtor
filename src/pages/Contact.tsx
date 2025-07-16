@@ -57,7 +57,7 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-secondary-900">Phone</h3>
-                    <p className="text-secondary-600">(503) 555-0123</p>
+                    <p className="text-secondary-600">(360) 270-4160</p>
                     <p className="text-sm text-secondary-500">Available 7 days a week</p>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-secondary-900">Email</h3>
-                    <p className="text-secondary-600">tina@tinaodell.com</p>
+                    <p className="text-secondary-600">odellhomesales@gmail.com</p>
                     <p className="text-sm text-secondary-500">I'll respond within 24 hours</p>
                   </div>
                 </div>
@@ -161,7 +161,7 @@ const Contact: React.FC = () => {
                       id="phone"
                       {...register('phone')}
                       className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="(503) 555-0123"
+                      placeholder="(360) 270-4160"
                     />
                   </div>
 

@@ -164,8 +164,8 @@ VITE_FIREBASE_PROJECT_ID=your-project-id
 ## 📞 Support
 
 For questions or support regarding this website:
-- Email: tina@tinaodell.com
-- Phone: (503) 555-0123
+- Email: odellhomesales@gmail.com
+- Phone: (360) 270-4160
 
 ## 📄 License
 

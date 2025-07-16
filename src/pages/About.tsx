@@ -39,18 +39,18 @@ const About: React.FC = () => {
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="mailto:tina@tinaodell.com"
+                  href="mailto:odellhomesales@gmail.com"
                   className="flex items-center space-x-2 text-primary-600 hover:text-primary-700"
                 >
                   <Mail size={20} />
-                  <span>tina@tinaodell.com</span>
+                  <span>odellhomesales@gmail.com</span>
                 </a>
                 <a
-                  href="tel:503-555-0123"
+                  href="tel:360-270-4160"
                   className="flex items-center space-x-2 text-primary-600 hover:text-primary-700"
                 >
                   <Phone size={20} />
-                  <span>(503) 555-0123</span>
+                  <span>(360)270-4160</span>
                 </a>
               </div>
             </div>
