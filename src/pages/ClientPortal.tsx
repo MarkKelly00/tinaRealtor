@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart, MapPin, Bed, Bath, Square, Trash2, Eye } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { updateProfile } from 'firebase/auth';
+import { auth } from '../services/firebase';
 
 const ClientPortal: React.FC = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const [activeTab, setActiveTab] = useState<'favorites' | 'profile'>('favorites');
+  
+  // State for profile form
+  const [displayName, setDisplayName] = useState(currentUser?.displayName || '');
+  const [email, setEmail] = useState(currentUser?.email || '');
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Mock favorites data - will be replaced with real data from Firebase
-  const [favorites] = useState([
+  const [favorites, setFavorites] = useState([
     {
       id: '1',
       address: '123 Oak Street',
@@ -17,7 +25,7 @@ const ClientPortal: React.FC = () => {
       beds: 4,
       baths: 3,
       sqft: 2400,
-      dateAdded: '2024-01-15',
+      dateAdded: '2025-07-15',
       notes: 'Love the kitchen and backyard!'
     },
     {
@@ -29,15 +37,39 @@ const ClientPortal: React.FC = () => {
       beds: 3,
       baths: 2,
       sqft: 1800,
-      dateAdded: '2024-01-10',
+      dateAdded: '2025-07-10',
       notes: 'Great location, close to downtown'
     }
   ]);
 
   const removeFavorite = (id: string) => {
-    // TODO: Implement remove favorite functionality
-    console.log('Remove favorite:', id);
+    setFavorites(favorites.filter(fav => fav.id !== id));
   };
+  
+  const handleProfileSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const firebaseUser = auth.currentUser;
+    if (!firebaseUser) return;
+    
+    setIsSaving(true);
+    setSaveSuccess(false);
+    
+    try {
+      await updateProfile(firebaseUser, { displayName });
+      setSaveSuccess(true);
+    } catch (error) {
+      console.error("Error updating profile: ", error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      setDisplayName(currentUser.displayName || '');
+      setEmail(currentUser.email || '');
+    }
+  }, [currentUser]);
 
   return (
     <div className="bg-white min-h-screen">
@@ -189,29 +221,32 @@ const ClientPortal: React.FC = () => {
                 Profile Settings
               </h2>
               
-              <div className="bg-white p-8 rounded-lg shadow-md border border-secondary-200">
+              <form onSubmit={handleProfileSave} className="bg-white p-8 rounded-lg shadow-md border border-secondary-200">
                 <div className="space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-secondary-700 mb-2">
-                      Email Address
+                    <label htmlFor="displayName" className="block text-sm font-medium text-secondary-700 mb-2">
+                      Display Name
                     </label>
                     <input
-                      type="email"
-                      value={currentUser?.email || ''}
-                      disabled
-                      className="input-field bg-secondary-50"
+                      id="displayName"
+                      type="text"
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
+                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      placeholder="Enter your display name"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-secondary-700 mb-2">
-                      Display Name
+                    <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
+                      Email Address
                     </label>
                     <input
-                      type="text"
-                      value={currentUser?.displayName || ''}
-                      className="input-field"
-                      placeholder="Enter your display name"
+                      id="email"
+                      type="email"
+                      value={email}
+                      disabled
+                      className="w-full px-4 py-3 border border-secondary-300 rounded-md bg-secondary-100 cursor-not-allowed"
                     />
                   </div>
 
@@ -241,12 +276,28 @@ const ClientPortal: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="pt-4">
-                    <button className="btn-primary">
-                      Save Changes
+                  <div className="pt-4 flex items-center space-x-4">
+                    <button 
+                      type="submit"
+                      className="bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700 transition-colors font-medium disabled:opacity-50"
+                      disabled={isSaving}
+                    >
+                      {isSaving ? 'Saving...' : 'Save Changes'}
                     </button>
+                    {saveSuccess && (
+                      <span className="text-sm text-green-600">Profile saved successfully!</span>
+                    )}
                   </div>
                 </div>
+              </form>
+
+              <div className="mt-8">
+                 <button
+                    onClick={logout}
+                    className="text-sm text-secondary-600 hover:text-primary-600"
+                  >
+                    Log Out
+                  </button>
               </div>
             </div>
           )}

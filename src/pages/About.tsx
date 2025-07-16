@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Phone, Award, MapPin } from 'lucide-react';
+import headshot from '../assets/Headshot1.jpg';
 
 const About: React.FC = () => {
   return (
@@ -12,12 +13,30 @@ const About: React.FC = () => {
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary-900 mb-6">
                 About Tina Odell
               </h1>
-              <p className="text-lg text-secondary-600 mb-6">
-                With over 10 years of experience in the Pacific Northwest real estate market, 
-                I'm passionate about helping families find their perfect home. Licensed in both 
-                Washington and Oregon, I bring deep market knowledge and personalized service 
-                to every transaction.
-              </p>
+              <div className="text-lg text-secondary-600 mb-6 space-y-4">
+                <p>
+                  As a proud Pacific Northwest Native, I've had the privilege of helping buyers and sellers
+                  navigate the local real estate market since 2015. My approach is rooted in genuine
+                  care, and a deep commitment to understanding and prioritizing the clients' needs-
+                  because for me, real estate is about more than transactions, it's about connections and
+                  relationships.
+                </p>
+                <p>
+                  With nearly a decade of experience, I bring not only a strong market knowledge, but
+                  also a calm, steady presence during what can be a significant life transition.
+                  Whether you are buying your first home, selling a cherished property, or looking for the
+                  perfect investment, I'm here to guide you every step of the way with honesty, integrity
+                  and attention to detail.
+                </p>
+                <p>
+                  Outside of real estate, I love spending time with my four amazing kids and four beautiful
+                  grandkids. I'm also passionate about photography, hiking the trails of our stunning
+                  region, and giving old furniture new life through refinishing projects.
+                </p>
+                <p className="font-semibold text-primary-600">
+                  Let's connect- YOUR goals are my PRIORITY.
+                </p>
+              </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="mailto:tina@tinaodell.com"
@@ -35,8 +54,8 @@ const About: React.FC = () => {
                 </a>
               </div>
             </div>
-            <div className="bg-secondary-200 rounded-lg h-96 flex items-center justify-center">
-              <span className="text-secondary-500">Professional Photo</span>
+            <div className="bg-secondary-200 rounded-lg h-96 flex items-center justify-center p-4">
+              <img src={headshot} alt="Tina Odell" className="max-w-full max-h-full object-contain rounded-lg" />
             </div>
           </div>
         </div>

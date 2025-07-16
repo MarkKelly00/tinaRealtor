@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Listings from './pages/Listings';
+import ListingDetail from './pages/ListingDetail';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
@@ -19,12 +20,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/listings" element={<Listings />} />
+            <Route path="/listings/:id" element={<ListingDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route 
-              path="/client-portal" 
+              path="/portal" 
               element={
                 <ProtectedRoute>
                   <ClientPortal />

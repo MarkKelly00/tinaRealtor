@@ -122,7 +122,7 @@ const Contact: React.FC = () => {
                       type="text"
                       id="name"
                       {...register('name', { required: 'Name is required' })}
-                      className="input-field"
+                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       placeholder="Your full name"
                     />
                     {errors.name && (
@@ -144,7 +144,7 @@ const Contact: React.FC = () => {
                           message: 'Please enter a valid email address'
                         }
                       })}
-                      className="input-field"
+                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       placeholder="your.email@example.com"
                     />
                     {errors.email && (
@@ -160,7 +160,7 @@ const Contact: React.FC = () => {
                       type="tel"
                       id="phone"
                       {...register('phone')}
-                      className="input-field"
+                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       placeholder="(503) 555-0123"
                     />
                   </div>
@@ -173,7 +173,7 @@ const Contact: React.FC = () => {
                       id="message"
                       rows={4}
                       {...register('message', { required: 'Message is required' })}
-                      className="input-field"
+                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
                       placeholder="Tell me about your real estate needs..."
                     />
                     {errors.message && (
@@ -184,7 +184,7 @@ const Contact: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full btn-primary flex items-center justify-center space-x-2"
+                    className="w-full bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700 transition-colors font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>

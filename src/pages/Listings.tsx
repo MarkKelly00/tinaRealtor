@@ -1,5 +1,6 @@
-import React from 'react';
-import { Search, Filter, MapPin, Bed, Bath, Square } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, Filter, Bed, Bath, Square, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Listings: React.FC = () => {
   // Placeholder data - will be replaced with IDX Broker integration
@@ -151,9 +152,12 @@ const Listings: React.FC = () => {
                     <span className="text-2xl font-bold text-primary-600">
                       ${listing.price.toLocaleString()}
                     </span>
-                    <button className="btn-primary">
+                    <Link 
+                      to={`/listings/${listing.id}`} 
+                      className="bg-primary-600 text-white px-6 py-2 rounded-md hover:bg-primary-700 transition-colors font-medium"
+                    >
                       View Details
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

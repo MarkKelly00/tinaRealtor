@@ -3,13 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  // These will need to be replaced with actual Firebase config
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "your-app-id"
+  apiKey: "AIzaSyCgVa928sALItURXmPuoH3EnilJrNQCn0c",
+  authDomain: "nw-corner-living.firebaseapp.com",
+  projectId: "nw-corner-living",
+  storageBucket: "nw-corner-living.appspot.com",
+  messagingSenderId: "526659389436",
+  appId: "1:526659389436:web:4774f1829b514b4e3f1479",
 };
 
 const app = initializeApp(firebaseConfig);
