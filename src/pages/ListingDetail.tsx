@@ -8,8 +8,6 @@ import {
   Car, 
   Calendar,
   MapPin,
-  Home,
-  DollarSign,
   ChevronLeft,
   ChevronRight,
   Heart,

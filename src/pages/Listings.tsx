@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Search, Filter, Bed, Bath, Square, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
