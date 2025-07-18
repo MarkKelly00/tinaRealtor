@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, LogOut } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import logoImage from '../../assets/LOGO.JPG';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,22 +28,17 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm border-b border-secondary-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center space-x-4">
-              <img 
-                src={logoImage} 
-                alt="Tina Odell Logo" 
-                className="h-20 w-auto"
-              />
-              <div className="hidden sm:flex flex-col">
-                <span className="text-2xl font-serif font-bold text-secondary-800">
-                  Tina Odell
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="flex flex-col">
+                <span className="text-3xl font-serif font-bold text-primary-600">
+                  Tina O'Dell
                 </span>
-                <span className="text-sm text-secondary-600">
+                <span className="text-sm text-secondary-600 tracking-wider">
                   Licensed Realtor WA & OR
                 </span>
               </div>

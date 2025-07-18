@@ -102,9 +102,9 @@ const ListingDetail: React.FC = () => {
     virtualTourUrl: 'https://example.com/virtual-tour',
     mlsNumber: 'MLS2110240',
     listingAgent: {
-      name: 'Tina Odell',
-      phone: '(360) 270-4160',
-      email: 'odellhomesales@gmail.com'
+      name: 'Tina O\'Dell',
+      phone: '(503) 555-0123',
+      email: 'tina@tinaodell.com'
     }
   };
 

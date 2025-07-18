@@ -11,7 +11,7 @@ const About: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary-900 mb-6">
-                About Tina Odell
+                About Tina O'Dell
               </h1>
               <div className="text-lg text-secondary-600 mb-6 space-y-4">
                 <p>
@@ -22,7 +22,7 @@ const About: React.FC = () => {
                   relationships.
                 </p>
                 <p>
-                  With nearly a decade of experience, I bring not only a strong market knowledge, but
+                  With over a decade of experience, I bring not only a strong market knowledge, but
                   also a calm, steady presence during what can be a significant life transition.
                   Whether you are buying your first home, selling a cherished property, or looking for the
                   perfect investment, I'm here to guide you every step of the way with honesty, integrity
@@ -39,23 +39,23 @@ const About: React.FC = () => {
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="mailto:odellhomesales@gmail.com"
+                  href="mailto:tina@tinaodell.com"
                   className="flex items-center space-x-2 text-primary-600 hover:text-primary-700"
                 >
                   <Mail size={20} />
-                  <span>odellhomesales@gmail.com</span>
+                  <span>tina@tinaodell.com</span>
                 </a>
                 <a
-                  href="tel:360-270-4160"
+                  href="tel:503-555-0123"
                   className="flex items-center space-x-2 text-primary-600 hover:text-primary-700"
                 >
                   <Phone size={20} />
-                  <span>(360)270-4160</span>
+                  <span>(503) 555-0123</span>
                 </a>
               </div>
             </div>
             <div className="bg-secondary-200 rounded-lg h-96 flex items-center justify-center p-4">
-              <img src={headshot} alt="Tina Odell" className="max-w-full max-h-full object-contain rounded-lg" />
+              <img src={headshot} alt="Tina O'Dell" className="max-w-full max-h-full object-contain rounded-lg" />
             </div>
           </div>
         </div>

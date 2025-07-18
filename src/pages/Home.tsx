@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, MapPin, Bed, Bath, Square, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Search, MapPin, Bed, Bath, Square, ChevronLeft, ChevronRight, Star, ArrowRight } from 'lucide-react';
 import headshot from '../assets/Headshot2.jpg';
 import heroBgImage from '../assets/hoodBG.jpeg';
 
@@ -42,6 +42,7 @@ const Home: React.FC = () => {
     }
   ];
 
+  // Testimonials mock data
   const testimonials = [
     {
       id: 1,
@@ -64,50 +65,86 @@ const Home: React.FC = () => {
   ];
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % featuredProperties.length);
+    setCurrentSlide((prev) => (prev === featuredProperties.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + featuredProperties.length) % featuredProperties.length);
+    setCurrentSlide((prev) => (prev === 0 ? featuredProperties.length - 1 : prev - 1));
   };
 
   return (
-    <div className="bg-white">
-      {/* Hero Section with Search */}
-      <section className="relative h-[600px] flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${heroBgImage})`,
-          }}
-        />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-white">
-            Find Your Dream Home
-          </h1>
-          <p className="text-xl mb-8 text-gray-200">
-            Professional Real Estate Services in Washington & Oregon
-          </p>
-          <div className="max-w-2xl mx-auto">
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Search by city, neighborhood, or ZIP code..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-6 py-4 rounded-l-md text-secondary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+    <div className="bg-secondary-50">
+      {/* Hero Section */}
+      <section className="relative bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Left side - Headshot */}
+            <div className="flex items-center justify-center p-8 lg:p-12">
+              <img 
+                src={headshot} 
+                alt="Tina O'Dell" 
+                className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[70vh]"
               />
-              <button className="bg-primary-600 text-white px-8 py-4 rounded-r-md hover:bg-primary-700 transition-colors flex items-center gap-2">
-                <Search size={20} />
-                Search
-              </button>
+            </div>
+
+            {/* Right side - Content */}
+            <div 
+              className="relative flex flex-col items-center justify-center text-center p-8 lg:p-12 min-h-[500px] lg:min-h-screen"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroBgImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              <div className="relative z-10 text-white max-w-md">
+                <h1 className="text-5xl md:text-6xl font-serif font-bold mb-2">Tina O'Dell</h1>
+                <p className="text-xl text-gray-200 mb-4">Real Estate Professional</p>
+                <a href="tel:503-555-0123" className="text-2xl font-semibold tracking-wider text-white hover:text-primary-300 transition-colors duration-300">
+                  (503) 555-0123
+                </a>
+                
+                <div className="my-8 border-t border-gray-400 w-1/2 mx-auto"></div>
+
+                <h2 className="text-3xl font-serif font-bold mb-4">Find Your Dream Home</h2>
+                <div className="w-full">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Search by city, neighborhood, or ZIP..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="flex-1 px-4 py-3 rounded-l-md text-secondary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    />
+                    <button className="bg-primary-600 text-white px-6 py-3 rounded-r-md hover:bg-primary-700 transition-colors flex items-center gap-2">
+                      <Search size={20} />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Properties Carousel */}
-      <section className="py-20 bg-secondary-50">
+      {/* CMA Call to Action Section */}
+      <section className="bg-primary-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">What's Your Home Worth?</h2>
+          <p className="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
+            Get a free, no-obligation Comparative Market Analysis (CMA) for your home. Understand your property's value in today's market.
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 bg-white text-primary-600 px-8 py-4 rounded-md hover:bg-primary-100 transition-colors font-bold text-lg shadow-lg"
+          >
+            Request Your Free CMA
+            <ArrowRight size={20} />
+          </Link>
+        </div>
+      </section>
+
+      {/* Featured Properties Section */}
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-secondary-900 mb-4">
@@ -198,44 +235,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-serif font-bold text-secondary-900 mb-6">
-                Your Trusted Pacific Northwest Realtor
-              </h2>
-              <p className="text-lg text-secondary-600 mb-6">
-                With nearly a decade of experience in the Washington and Oregon real estate markets, 
-                I bring not only strong market knowledge but also a calm, steady presence during 
-                what can be a significant life transition.
-              </p>
-              <p className="text-lg text-secondary-600 mb-8">
-                Whether you're buying your first home, selling a cherished property, or looking 
-                for the perfect investment, I'm here to guide you every step of the way with 
-                honesty, integrity, and attention to detail.
-              </p>
-              <Link
-                to="/about"
-                className="inline-block bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700 transition-colors"
-              >
-                Learn More About Me
-              </Link>
-            </div>
-            <div className="relative">
-              <img 
-                src={headshot} 
-                alt="Tina Odell"
-                className="rounded-lg shadow-xl w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 bg-secondary-50">
+      {/* Testimonials Section */}
+      <section className="bg-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-secondary-900 mb-4">
@@ -266,10 +267,30 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section with Form */}
-      <section className="py-20 bg-primary-600">
+      {/* About Section - Simplified */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-4xl font-serif font-bold text-secondary-900 mb-4">
+              Your Trusted Pacific Northwest Realtor
+            </h2>
+            <p className="text-lg text-secondary-600 max-w-3xl mx-auto mb-8">
+              With nearly a decade of experience in the Washington and Oregon real estate markets, I bring not only strong market knowledge but also a calm, steady presence during what can be a significant life transition. I'm here to guide you every step of the way with honesty, integrity, and attention to detail.
+            </p>
+            <Link 
+              to="/about"
+              className="btn-outline"
+            >
+              Learn More About Me
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-xl p-8 md:p-12">
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-serif font-bold text-secondary-900 mb-4 text-center">
               Are You Interested in Buying or Selling a Home?
             </h2>

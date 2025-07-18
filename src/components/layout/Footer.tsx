@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Tina Odell</h3>
+            <h3 className="text-white text-lg font-semibold mb-4">Tina O'Dell</h3>
             <p className="text-sm mb-4">
               Licensed Real Estate Professional in Washington and Oregon
             </p>
@@ -71,14 +71,14 @@ const Footer: React.FC = () => {
               <div className="flex items-start space-x-3">
                 <Phone size={16} className="mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-sm">(360) 270-4160</p>
+                  <p className="text-sm">(503) 555-0123</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <Mail size={16} className="mt-1 flex-shrink-0" />
                 <div>
-                  <a href="mailto:odellhomesales@gmail.com" className="text-sm hover:text-white transition-colors">
-                    odellhomesales@gmail.com
+                  <a href="mailto:tina@tinaodell.com" className="text-sm hover:text-white transition-colors">
+                    tina@tinaodell.com
                   </a>
                 </div>
               </div>
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
         <div className="mt-12 pt-8 border-t border-secondary-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-secondary-400">
-              © {new Date().getFullYear()} Tina Odell Real Estate. All rights reserved.
+              © {new Date().getFullYear()} Tina O'Dell Real Estate. All rights reserved.
             </p>
             <p className="text-sm text-secondary-400 mt-2 md:mt-0">
               Licensed in Washington & Oregon
