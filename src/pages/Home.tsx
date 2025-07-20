@@ -127,7 +127,7 @@ const Home: React.FC = () => {
           {/* Text Content Below Image */}
           <div className="bg-primary-900 text-white px-4 pb-8 mt-2 relative z-10">
             <div className="max-w-md mx-auto text-center">
-              <h1 className="text-3xl font-serif font-bold mb-2">
+              <h1 className="text-3xl font-serif text-white font-bold mb-2">
                 Find Your Dream Home
               </h1>
               <p className="text-base mb-6 text-white">
