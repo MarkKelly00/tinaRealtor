@@ -114,7 +114,7 @@ const Home: React.FC = () => {
         <div className="md:hidden relative bg-primary-900">
           {/* Hero Image Container */}
           <div 
-            className="relative h-[400px] bg-cover bg-top mb-1"
+            className="relative h-[400px] bg-cover bg-top"
             style={{
               backgroundImage: `url(${heroMobile})`,
               backgroundRepeat: 'no-repeat',
@@ -125,12 +125,12 @@ const Home: React.FC = () => {
           </div>
           
           {/* Text Content Below Image */}
-          <div className="bg-primary-900 text-white px-4 pb-8 -mt-20 relative z-10">
+          <div className="bg-primary-900 text-white px-4 pb-8 mt-2 relative z-10">
             <div className="max-w-md mx-auto text-center">
               <h1 className="text-3xl font-serif font-bold mb-2">
                 Find Your Dream Home
               </h1>
-              <p className="text-base mb-6 text-primary-100">
+              <p className="text-base mb-6 text-white">
                 Professional Real Estate Services in Washington & Oregon
               </p>
               <div className="w-full">
