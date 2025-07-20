@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Users, Clock, Home, MapPin } from 'lucide-react';
+import { Award, MapPin } from 'lucide-react';
 import headshot from '../assets/Headshot2.jpg';
 
 const About: React.FC = () => {
