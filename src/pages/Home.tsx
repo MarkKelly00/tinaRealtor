@@ -114,10 +114,9 @@ const Home: React.FC = () => {
         <div className="md:hidden relative bg-primary-900">
           {/* Hero Image Container */}
           <div 
-            className="relative h-[400px] bg-cover bg-top"
+            className="relative h-[400px] bg-cover bg-top mb-1"
             style={{
               backgroundImage: `url(${heroMobile})`,
-              backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center top'
             }}
