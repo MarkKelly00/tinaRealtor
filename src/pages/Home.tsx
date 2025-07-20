@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MapPin, Bed, Bath, Square, ChevronLeft, ChevronRight, Star, ArrowRight } from 'lucide-react';
-import headshot from '../assets/Headshot2.jpg';
-import heroBgImage from '../assets/hoodBG.jpeg';
+import heroDesktop from '../assets/hoodHero-Desktop.png';
+import heroMobile from '../assets/hoodHero-Mobile.png';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -76,49 +76,68 @@ const Home: React.FC = () => {
     <div className="bg-secondary-50">
       {/* Hero Section */}
       <section className="relative bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            {/* Left side - Headshot */}
-            <div className="flex items-center justify-center p-8 lg:p-12">
-              <img 
-                src={headshot} 
-                alt="Tina O'Dell" 
-                className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[70vh]"
-              />
+        {/* Desktop Hero */}
+        <div 
+          className="hidden md:block relative h-[600px] bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${heroDesktop})`
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
+          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+            <div className="max-w-2xl mx-auto">
+              <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-white drop-shadow-lg">
+                Find Your Dream Home
+              </h1>
+              <p className="text-xl mb-8 text-white drop-shadow-md">
+                Professional Real Estate Services in Washington & Oregon
+              </p>
+              <div className="w-full">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Search by city, neighborhood, or ZIP..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 px-4 py-3 rounded-l-md text-secondary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                  <button className="bg-primary-600 text-white px-6 py-3 rounded-r-md hover:bg-primary-700 transition-colors flex items-center gap-2">
+                    <Search size={20} />
+                  </button>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
 
-            {/* Right side - Content */}
-            <div 
-              className="relative flex flex-col items-center justify-center text-center p-8 lg:p-12 min-h-[500px] lg:min-h-screen"
-              style={{
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroBgImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-            >
-              <div className="relative z-10 text-white max-w-md">
-                <h1 className="text-5xl md:text-6xl font-serif font-bold mb-2">Tina O'Dell</h1>
-                <p className="text-xl text-gray-200 mb-4">Real Estate Professional</p>
-                <a href="tel:503-555-0123" className="text-2xl font-semibold tracking-wider text-white hover:text-primary-300 transition-colors duration-300">
-                  (503) 555-0123
-                </a>
-                
-                <div className="my-8 border-t border-gray-400 w-1/2 mx-auto"></div>
-
-                <h2 className="text-3xl font-serif font-bold mb-4">Find Your Dream Home</h2>
-                <div className="w-full">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder="Search by city, neighborhood, or ZIP..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="flex-1 px-4 py-3 rounded-l-md text-secondary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                    <button className="bg-primary-600 text-white px-6 py-3 rounded-r-md hover:bg-primary-700 transition-colors flex items-center gap-2">
-                      <Search size={20} />
-                    </button>
-                  </div>
+        {/* Mobile Hero */}
+        <div 
+          className="md:hidden relative h-[600px] bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${heroMobile})`
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
+          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+            <div className="max-w-md mx-auto">
+              <h1 className="text-4xl font-serif font-bold mb-4 text-white drop-shadow-lg">
+                Find Your Dream Home
+              </h1>
+              <p className="text-lg mb-6 text-white drop-shadow-md">
+                Professional Real Estate Services in Washington & Oregon
+              </p>
+              <div className="w-full">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Search by city, ZIP..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 px-3 py-2 rounded-l-md text-secondary-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                  <button className="bg-primary-600 text-white px-4 py-2 rounded-r-md hover:bg-primary-700 transition-colors flex items-center gap-1">
+                    <Search size={18} />
+                  </button>
                 </div>
               </div>
             </div>

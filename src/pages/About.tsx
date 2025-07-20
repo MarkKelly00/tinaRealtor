@@ -1,6 +1,6 @@
 import React from 'react';
-import { Mail, Phone, Award, MapPin } from 'lucide-react';
-import headshot from '../assets/Headshot1.jpg';
+import { Award, Users, Clock, Home, MapPin } from 'lucide-react';
+import headshot from '../assets/Headshot2.jpg';
 
 const About: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const About: React.FC = () => {
       {/* Hero Section */}
       <section className="py-16 bg-secondary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary-900 mb-6">
                 About Tina O'Dell
@@ -37,32 +37,34 @@ const About: React.FC = () => {
                   Let's connect- YOUR goals are my PRIORITY.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex gap-4">
                 <a
                   href="mailto:tina@tinaodell.com"
-                  className="flex items-center space-x-2 text-primary-600 hover:text-primary-700"
+                  className="inline-block bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700 transition-colors"
                 >
-                  <Mail size={20} />
-                  <span>tina@tinaodell.com</span>
+                  Contact Me
                 </a>
                 <a
                   href="tel:503-555-0123"
-                  className="flex items-center space-x-2 text-primary-600 hover:text-primary-700"
+                  className="inline-block bg-secondary-200 text-secondary-900 px-6 py-3 rounded-md hover:bg-secondary-300 transition-colors"
                 >
-                  <Phone size={20} />
-                  <span>(503) 555-0123</span>
+                  (503) 555-0123
                 </a>
               </div>
             </div>
-            <div className="bg-secondary-200 rounded-lg h-96 flex items-center justify-center p-4">
-              <img src={headshot} alt="Tina O'Dell" className="max-w-full max-h-full object-contain rounded-lg" />
+            <div className="lg:sticky lg:top-24">
+              <img
+                src={headshot}
+                alt="Tina O'Dell"
+                className="rounded-lg shadow-xl w-full"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Credentials Section */}
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-serif font-bold text-secondary-900 mb-8 text-center">
             Credentials & Expertise
