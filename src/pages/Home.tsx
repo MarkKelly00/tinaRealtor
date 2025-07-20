@@ -111,19 +111,27 @@ const Home: React.FC = () => {
         </div>
 
         {/* Mobile Hero */}
-        <div 
-          className="md:hidden relative h-[600px] bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${heroMobile})`
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
-          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-            <div className="max-w-md mx-auto">
-              <h1 className="text-4xl font-serif font-bold mb-4 text-white drop-shadow-lg">
+        <div className="md:hidden relative bg-primary-900">
+          {/* Hero Image Container */}
+          <div 
+            className="relative h-[400px] bg-cover bg-top"
+            style={{
+              backgroundImage: `url(${heroMobile})`,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center top'
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary-900" />
+          </div>
+          
+          {/* Text Content Below Image */}
+          <div className="bg-primary-900 text-white px-4 pb-8 -mt-20 relative z-10">
+            <div className="max-w-md mx-auto text-center">
+              <h1 className="text-3xl font-serif font-bold mb-2">
                 Find Your Dream Home
               </h1>
-              <p className="text-lg mb-6 text-white drop-shadow-md">
+              <p className="text-base mb-6 text-primary-100">
                 Professional Real Estate Services in Washington & Oregon
               </p>
               <div className="w-full">
