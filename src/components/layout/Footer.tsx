@@ -25,28 +25,28 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-sm hover:text-white transition-colors">
-                  Home
-                </Link>
+                Home
+              </Link>
               </li>
               <li>
                 <Link to="/listings" className="text-sm hover:text-white transition-colors">
-                  Listings
-                </Link>
+                Listings
+              </Link>
               </li>
               <li>
                 <Link to="/about" className="text-sm hover:text-white transition-colors">
-                  About
-                </Link>
+                About
+              </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-sm hover:text-white transition-colors">
-                  Contact
-                </Link>
+                Contact
+              </Link>
               </li>
               <li>
                 <Link to="/portal" className="text-sm hover:text-white transition-colors">
-                  Client Portal
-                </Link>
+                Client Portal
+              </Link>
               </li>
             </ul>
           </div>
@@ -88,21 +88,21 @@ const Footer: React.FC = () => {
                   <p className="text-sm">
                     Serving Washington & Oregon
                   </p>
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+          </div>
 
             {/* Social Media */}
             <div className="flex space-x-4 mt-6">
               <a href="#" className="text-secondary-400 hover:text-white transition-colors">
-                <Facebook size={20} />
-              </a>
+              <Facebook size={20} />
+            </a>
               <a href="#" className="text-secondary-400 hover:text-white transition-colors">
-                <Instagram size={20} />
-              </a>
+              <Instagram size={20} />
+            </a>
               <a href="#" className="text-secondary-400 hover:text-white transition-colors">
-                <Linkedin size={20} />
-              </a>
+              <Linkedin size={20} />
+            </a>
             </div>
           </div>
         </div>

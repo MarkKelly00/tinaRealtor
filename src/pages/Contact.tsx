@@ -1,33 +1,79 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import type { ContactForm } from '../types';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Contact: React.FC = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactForm>();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    interest: '',
+    message: ''
+  });
 
-  const onSubmit = async (data: ContactForm) => {
-    setIsSubmitting(true);
+  const [formStatus, setFormStatus] = useState({
+    submitted: false,
+    success: false,
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus({ submitted: false, success: false, message: '' });
+
     try {
-      // TODO: Integrate with KVCORE API
-      console.log('Form submission:', data);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      setSubmitSuccess(true);
-      reset();
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setFormStatus({
+          submitted: true,
+          success: true,
+          message: 'Thank you for your message! We will get back to you shortly.'
+        });
+        setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            interest: '',
+            message: ''
+        });
+      } else {
+        setFormStatus({
+          submitted: true,
+          success: false,
+          message: result.error || 'An unexpected error occurred. Please try again.'
+        });
+      }
     } catch (error) {
-      console.error('Form submission error:', error);
-    } finally {
-      setIsSubmitting(false);
+      setFormStatus({
+        submitted: true,
+        success: false,
+        message: 'An error occurred while submitting the form. Please check your connection and try again.'
+      });
     }
   };
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="py-16 bg-secondary-50">
+      {/* Page Header */}
+      <section className="bg-primary-600 py-16 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary-900 mb-6">
@@ -40,12 +86,64 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
-      {/* Contact Info & Form Section */}
+      {/* Contact Form & Info */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Form */}
+            <div className="bg-secondary-50 p-8 rounded-lg shadow-md">
+              <h2 className="text-3xl font-serif font-bold text-secondary-900 mb-6">Send a Message</h2>
+              {formStatus.submitted && (
+                <div 
+                  className={`p-4 mb-4 rounded-md ${formStatus.success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+                  role="alert"
+                >
+                  {formStatus.message}
+                </div>
+              )}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-medium text-secondary-700">First Name</label>
+                    <input type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-medium text-secondary-700">Last Name</label>
+                    <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-secondary-700">Email</label>
+                  <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-secondary-700">Phone</label>
+                  <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
+                </div>
+                <div>
+                  <label htmlFor="interest" className="block text-sm font-medium text-secondary-700">I'm interested in...</label>
+                  <select name="interest" id="interest" value={formData.interest} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                    <option value="">Select an option</option>
+                    <option value="Buying">Buying a home</option>
+                    <option value="Selling">Selling a home</option>
+                    <option value="CMA">Requesting a CMA</option>
+                    <option value="General">General inquiry</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-secondary-700">Message</label>
+                  <textarea name="message" id="message" rows={4} value={formData.message} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"></textarea>
+                </div>
+                <div>
+                  <button type="submit" className="w-full bg-primary-600 text-white py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+            
+            {/* Contact Info */}
+            <div className="space-y-8">
               <h2 className="text-3xl font-serif font-bold text-secondary-900 mb-8">
                 Get in Touch
               </h2>
@@ -95,110 +193,6 @@ const Contact: React.FC = () => {
                   <li>• Expert negotiation and market analysis</li>
                   <li>• Full-service support from search to closing</li>
                 </ul>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div>
-              <div className="bg-white p-8 rounded-lg shadow-lg border border-secondary-200">
-                <h2 className="text-2xl font-serif font-bold text-secondary-900 mb-6">
-                  Send Me a Message
-                </h2>
-
-                {submitSuccess && (
-                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                    <p className="text-green-800">
-                      Thank you for your message! I'll get back to you within 24 hours.
-                    </p>
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      {...register('name', { required: 'Name is required' })}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="Your full name"
-                    />
-                    {errors.name && (
-                      <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      {...register('email', { 
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^\S+@\S+$/i,
-                          message: 'Please enter a valid email address'
-                        }
-                      })}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="your.email@example.com"
-                    />
-                    {errors.email && (
-                      <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      {...register('phone')}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="(503) 555-0123"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={4}
-                      {...register('message', { required: 'Message is required' })}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
-                      placeholder="Tell me about your real estate needs..."
-                    />
-                    {errors.message && (
-                      <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
-                    )}
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700 transition-colors font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                        <span>Sending...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send size={16} />
-                        <span>Send Message</span>
-                      </>
-                    )}
-                  </button>
-                </form>
               </div>
             </div>
           </div>

@@ -37,10 +37,10 @@ const Header: React.FC = () => {
               <div className="flex flex-col">
                 <span className="text-3xl font-serif font-bold text-primary-600">
                   Tina O'Dell
-                </span>
+              </span>
                 <span className="text-sm text-secondary-600 tracking-wider">
-                  Licensed Realtor WA & OR
-                </span>
+                Licensed Realtor WA & OR
+              </span>
               </div>
             </Link>
           </div>
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
                 {item.name}
               </Link>
             ))}
-            
+
             {currentUser ? (
               <div className="flex items-center space-x-4 ml-4">
                 <Link
@@ -118,34 +118,34 @@ const Header: React.FC = () => {
               </Link>
             ))}
             
-            {currentUser ? (
+              {currentUser ? (
               <>
-                <Link
+                  <Link
                   to="/portal"
                   className="block px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:text-primary-600 hover:bg-secondary-50"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                  Client Portal
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:text-primary-600 hover:bg-secondary-50"
+                  >
+                  Logout
+                  </button>
+              </>
+              ) : (
+                <Link
+                  to="/login"
+                className="block px-3 py-2 rounded-md text-base font-medium bg-primary-600 text-white hover:bg-primary-700"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Client Portal
+                  Client Login
                 </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setIsMenuOpen(false);
-                  }}
-                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:text-primary-600 hover:bg-secondary-50"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <Link
-                to="/login"
-                className="block px-3 py-2 rounded-md text-base font-medium bg-primary-600 text-white hover:bg-primary-700"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Client Login
-              </Link>
-            )}
+              )}
           </div>
         </div>
       )}
