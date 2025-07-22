@@ -13,12 +13,12 @@ export default async function handler(
   const apiKey = process.env.CLOZE_API_KEY;
 
   if (!apiKey) {
-    console.error('Cloze API key is not configured.');
-    return res.status(500).json({ error: 'Server configuration error.' });
+    console.error('SERVER ERROR: Cloze API key is not configured in Vercel environment variables.');
+    return res.status(500).json({ success: false, error: 'Server configuration error. API key is missing.' });
   }
 
   if (!email) {
-    return res.status(400).json({ error: 'Email is required.' });
+    return res.status(400).json({ success: false, error: 'Email is required.' });
   }
 
   const contactPayload = {
@@ -26,10 +26,12 @@ export default async function handler(
     emails: [{ value: email, type: 'work', preferred: true }],
     phones: phone ? [{ value: phone, type: 'mobile' }] : [],
     customFields: [
-        ...(interest ? [{ uniqueid: 'contact_form_interest', value: interest }] : []),
-        ...(message ? [{ uniqueid: 'contact_form_message', value: message }] : [])
+        ...(interest ? [{ id: 'form_interest', value: interest }] : []),
+        ...(message ? [{ id: 'form_message', value: message }] : [])
     ]
   };
+
+  console.log('Sending payload to Cloze:', JSON.stringify(contactPayload, null, 2));
 
   try {
     const clozeResponse = await fetch('https://api.cloze.com/api/v1/people', {
@@ -43,14 +45,16 @@ export default async function handler(
 
     if (!clozeResponse.ok) {
       const errorBody = await clozeResponse.text();
-      console.error('Cloze API Error:', errorBody);
+      console.error('CLOZE API ERROR: Cloze responded with a non-OK status.');
+      console.error('CLOZE API Status:', clozeResponse.status);
+      console.error('CLOZE API Response Body:', errorBody);
       throw new Error(`Cloze API responded with status ${clozeResponse.status}`);
     }
 
     const clozeData = await clozeResponse.json();
     return res.status(200).json({ success: true, data: clozeData });
   } catch (error) {
-    console.error('Error submitting to Cloze:', error);
+    console.error('INTERNAL FUNCTION ERROR: Error submitting to Cloze:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return res.status(500).json({ success: false, error: errorMessage });
   }
