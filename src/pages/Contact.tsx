@@ -14,7 +14,8 @@ const Contact: React.FC = () => {
   const [formStatus, setFormStatus] = useState({
     submitted: false,
     success: false,
-    message: ''
+    message: '',
+    isLoading: false
   });
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -27,9 +28,11 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus({ submitted: false, success: false, message: '' });
+    setFormStatus({ submitted: false, success: false, message: '', isLoading: true });
 
     try {
+      console.log('Submitting contact form...');
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -38,13 +41,23 @@ const Contact: React.FC = () => {
         body: JSON.stringify(formData)
       });
 
-      const result = await response.json();
+      console.log('Response received:', response.status);
+      
+      let result;
+      try {
+        result = await response.json();
+      } catch (parseError) {
+        console.error('Error parsing response:', parseError);
+        result = { error: 'Could not parse server response' };
+      }
 
       if (response.ok) {
+        console.log('Form submitted successfully');
         setFormStatus({
           submitted: true,
           success: true,
-          message: 'Thank you for your message! We will get back to you shortly.'
+          message: 'Thank you for your message! We will get back to you shortly.',
+          isLoading: false
         });
         setFormData({
             firstName: '',
@@ -55,17 +68,21 @@ const Contact: React.FC = () => {
             message: ''
         });
       } else {
+        console.error('Form submission failed:', result);
         setFormStatus({
           submitted: true,
           success: false,
-          message: result.error || 'An unexpected error occurred. Please try again.'
+          message: result.error || `Server error (${response.status}). Please try again later.`,
+          isLoading: false
         });
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       setFormStatus({
         submitted: true,
         success: false,
-        message: 'An error occurred while submitting the form. Please check your connection and try again.'
+        message: 'Network error while submitting the form. Please check your connection and try again.',
+        isLoading: false
       });
     }
   };
@@ -134,9 +151,13 @@ const Contact: React.FC = () => {
                   <label htmlFor="message" className="block text-sm font-medium text-secondary-700">Message</label>
                   <textarea name="message" id="message" rows={4} value={formData.message} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"></textarea>
                 </div>
-            <div>
-                  <button type="submit" className="w-full bg-primary-600 text-white py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    Submit
+                <div>
+                  <button 
+                    type="submit" 
+                    disabled={formStatus.isLoading}
+                    className={`w-full bg-primary-600 text-white py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 ${formStatus.isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  >
+                    {formStatus.isLoading ? 'Submitting...' : 'Submit'}
                   </button>
                 </div>
               </form>
