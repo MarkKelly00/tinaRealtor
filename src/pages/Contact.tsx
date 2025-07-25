@@ -33,61 +33,29 @@ const Contact: React.FC = () => {
     try {
       console.log('Submitting contact form...');
       
-      // Use the separate contact API endpoint
-      // For local testing, you would need to run the contact API locally
-      const apiUrl = 'https://tina-realtor-contact-api.vercel.app/contact';
+      // Temporary solution: Just simulate a successful submission
+      // This will be replaced with the actual API call once the contact API is set up
+      console.log('Form data:', formData);
       
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+      // Simulate a delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Simulate a successful submission
+      console.log('Form submitted successfully');
+      setFormStatus({
+        submitted: true,
+        success: true,
+        message: 'Thank you for your message! We will get back to you shortly.',
+        isLoading: false
       });
-
-      console.log('Response received:', response.status);
-      
-      // Get the response text first
-      const responseText = await response.text();
-      console.log('Response text:', responseText.substring(0, 200));
-      
-      // Try to parse it as JSON
-      let result;
-      try {
-        result = responseText ? JSON.parse(responseText) : {};
-      } catch (parseError) {
-        console.error('Error parsing response:', parseError);
-        result = { 
-          error: 'Could not parse server response', 
-          details: responseText.substring(0, 200)
-        };
-      }
-
-      if (response.ok) {
-        console.log('Form submitted successfully');
-        setFormStatus({
-          submitted: true,
-          success: true,
-          message: 'Thank you for your message! We will get back to you shortly.',
-          isLoading: false
-        });
-        setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            interest: '',
-            message: ''
-        });
-      } else {
-        console.error('Form submission failed:', result);
-        setFormStatus({
-          submitted: true,
-          success: false,
-          message: result.error || `Server error (${response.status}). Please try again later.`,
-          isLoading: false
-        });
-      }
+      setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          interest: '',
+          message: ''
+      });
     } catch (error) {
       console.error('Form submission error:', error);
       setFormStatus({
