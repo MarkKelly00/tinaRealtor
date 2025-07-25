@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, MapPin, Bed, Bath, Square, Trash2, Eye } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import { updateProfile } from 'firebase/auth';
-import { auth } from '../services/firebase';
+import { updateProfile, getAuth } from 'firebase/auth';
+import { auth as firebaseAuth } from '../services/firebase';
 
 const ClientPortal: React.FC = () => {
   const { currentUser, logout } = useAuth();
   const [activeTab, setActiveTab] = useState<'favorites' | 'profile'>('favorites');
+  const [profileError, setProfileError] = useState<string | null>(null);
+  
+  // Use a fallback auth if the imported one is undefined
+  const auth = firebaseAuth || getAuth();
   
   // State for profile form
   const [displayName, setDisplayName] = useState(currentUser?.displayName || '');
@@ -48,17 +52,23 @@ const ClientPortal: React.FC = () => {
   
   const handleProfileSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    const firebaseUser = auth.currentUser;
-    if (!firebaseUser) return;
-    
-    setIsSaving(true);
-    setSaveSuccess(false);
+    setProfileError(null);
     
     try {
+      const firebaseUser = auth.currentUser;
+      if (!firebaseUser) {
+        setProfileError("You must be logged in to update your profile.");
+        return;
+      }
+      
+      setIsSaving(true);
+      setSaveSuccess(false);
+      
       await updateProfile(firebaseUser, { displayName });
       setSaveSuccess(true);
     } catch (error) {
       console.error("Error updating profile: ", error);
+      setProfileError("Failed to update profile. Please try again later.");
     } finally {
       setIsSaving(false);
     }
@@ -286,6 +296,9 @@ const ClientPortal: React.FC = () => {
                     </button>
                     {saveSuccess && (
                       <span className="text-sm text-green-600">Profile saved successfully!</span>
+                    )}
+                    {profileError && (
+                      <span className="text-sm text-red-600">{profileError}</span>
                     )}
                   </div>
                 </div>
