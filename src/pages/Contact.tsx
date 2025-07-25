@@ -33,10 +33,10 @@ const Contact: React.FC = () => {
     try {
       console.log('Submitting contact form...');
       
-      // Use the standalone API endpoint
+      // Use the pure JavaScript API endpoint
       const apiUrl = window.location.hostname === 'localhost' 
-        ? '/api-standalone/contact' 
-        : 'https://tina-realtor-dun.vercel.app/api-standalone/contact';
+        ? '/api/contact-pure' 
+        : 'https://tina-realtor-dun.vercel.app/api/contact-pure';
       
       const response = await fetch(apiUrl, {
         method: 'POST',

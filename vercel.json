@@ -1,11 +1,7 @@
 {
   "version": 2,
-  "routes": [
-    { "src": "/api-standalone/test", "dest": "/api-standalone/test.js" },
-    { "src": "/api-standalone/contact", "dest": "/api-standalone/contact.js" }
-  ],
   "functions": {
-    "api-standalone/*.js": {
+    "api/*.js": {
       "memory": 128,
       "maxDuration": 10
     }
