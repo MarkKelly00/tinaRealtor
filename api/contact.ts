@@ -4,9 +4,19 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
 ) {
+  // Set CORS headers to allow requests from any origin
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    return res.status(405).end('Method Not Allowed');
+    res.setHeader('Allow', 'POST, OPTIONS');
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   try {
@@ -52,33 +62,62 @@ export default async function handler(
     };
 
     console.log('Sending request to Cloze API...');
+    console.log('API Key (first 5 chars):', cleanApiKey.substring(0, 5) + '...');
     
-    // Updated endpoint to match Cloze API documentation
-    const clozeResponse = await fetch('https://api.cloze.com/v1/people', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${cleanApiKey}`,
-      },
-      body: JSON.stringify(contactPayload),
-    });
+    try {
+      // Updated endpoint to match Cloze API documentation
+      const clozeResponse = await fetch('https://api.cloze.com/v1/people', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${cleanApiKey}`,
+        },
+        body: JSON.stringify(contactPayload),
+      });
 
-    console.log('Cloze API response status:', clozeResponse.status);
+      console.log('Cloze API response status:', clozeResponse.status);
 
-    if (!clozeResponse.ok) {
-      const errorBody = await clozeResponse.text();
-      console.error('Cloze API Error:', errorBody);
+      let responseText = '';
+      try {
+        responseText = await clozeResponse.text();
+        console.log('Cloze API response text:', responseText.substring(0, 200));
+      } catch (textError) {
+        console.error('Error reading response text:', textError);
+      }
+
+      let responseData;
+      try {
+        // Try to parse the response as JSON
+        responseData = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Error parsing Cloze API response:', parseError);
+        return res.status(502).json({ 
+          success: false, 
+          error: `Invalid response from Cloze API (${clozeResponse.status})`,
+          details: responseText.substring(0, 500)
+        });
+      }
+
+      if (!clozeResponse.ok) {
+        console.error('Cloze API Error:', responseData);
+        return res.status(502).json({ 
+          success: false, 
+          error: `Cloze API responded with status ${clozeResponse.status}`,
+          details: responseData
+        });
+      }
+
+      console.log('Cloze API success response received');
+      return res.status(200).json({ success: true, data: responseData });
+    } catch (fetchError) {
+      console.error('Fetch error when calling Cloze API:', fetchError);
       return res.status(502).json({ 
         success: false, 
-        error: `Cloze API responded with status ${clozeResponse.status}`,
-        details: errorBody
+        error: 'Failed to connect to Cloze API',
+        details: fetchError instanceof Error ? fetchError.message : 'Unknown error'
       });
     }
-
-    const clozeData = await clozeResponse.json();
-    console.log('Cloze API success response received');
-    return res.status(200).json({ success: true, data: clozeData });
   } catch (error) {
     console.error('Error processing contact form submission:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';

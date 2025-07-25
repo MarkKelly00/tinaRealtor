@@ -33,7 +33,12 @@ const Contact: React.FC = () => {
     try {
       console.log('Submitting contact form...');
       
-      const response = await fetch('/api/contact', {
+      // Use the absolute URL to the API endpoint
+      const apiUrl = window.location.hostname === 'localhost' 
+        ? '/api/contact' 
+        : 'https://tina-realtor-dun.vercel.app/api/contact';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -43,12 +48,20 @@ const Contact: React.FC = () => {
 
       console.log('Response received:', response.status);
       
+      // Get the response text first
+      const responseText = await response.text();
+      console.log('Response text:', responseText.substring(0, 200));
+      
+      // Try to parse it as JSON
       let result;
       try {
-        result = await response.json();
+        result = responseText ? JSON.parse(responseText) : {};
       } catch (parseError) {
         console.error('Error parsing response:', parseError);
-        result = { error: 'Could not parse server response' };
+        result = { 
+          error: 'Could not parse server response', 
+          details: responseText.substring(0, 200)
+        };
       }
 
       if (response.ok) {
