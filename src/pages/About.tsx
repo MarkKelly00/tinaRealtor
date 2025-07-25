@@ -27,7 +27,7 @@ const About: React.FC = () => {
                   Whether you are buying your first home, selling a cherished property, or looking for the
                   perfect investment, I'm here to guide you every step of the way with honesty, integrity
                   and attention to detail.
-                </p>
+              </p>
                 <p>
                   Outside of real estate, I love spending time with my four amazing kids and four beautiful
                   grandkids. I'm also passionate about photography, hiking the trails of our stunning

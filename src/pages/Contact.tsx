@@ -16,7 +16,7 @@ const Contact: React.FC = () => {
     success: false,
     message: ''
   });
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -134,7 +134,7 @@ const Contact: React.FC = () => {
                   <label htmlFor="message" className="block text-sm font-medium text-secondary-700">Message</label>
                   <textarea name="message" id="message" rows={4} value={formData.message} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"></textarea>
                 </div>
-                <div>
+            <div>
                   <button type="submit" className="w-full bg-primary-600 text-white py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                     Submit
                   </button>

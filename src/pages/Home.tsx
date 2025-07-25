@@ -87,11 +87,11 @@ const Home: React.FC = () => {
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
             <div className="max-w-2xl mx-auto">
               <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-white drop-shadow-lg">
-                Find Your Dream Home
-              </h1>
+              Find Your Dream Home
+            </h1>
               <p className="text-xl mb-8 text-white drop-shadow-md">
                 Professional Real Estate Services in Washington & Oregon
-              </p>
+            </p>
               <div className="w-full">
                 <div className="flex gap-2">
                   <input
@@ -195,11 +195,11 @@ const Home: React.FC = () => {
                           <div className="h-64 md:h-full bg-gradient-to-br from-secondary-200 to-secondary-300 flex items-center justify-center">
                             <span className="text-secondary-500 text-lg">Property Image</span>
                           </div>
-                        </div>
+              </div>
                         <div className="md:w-1/2 p-8">
                           <h3 className="text-2xl font-serif font-bold text-secondary-900 mb-2">
                             {property.title}
-                          </h3>
+              </h3>
                           <div className="flex items-center text-secondary-600 mb-4">
                             <MapPin size={18} className="mr-2" />
                             <span>{property.location}</span>
@@ -228,9 +228,9 @@ const Home: React.FC = () => {
                             View Details
                           </Link>
                         </div>
-                      </div>
-                    </div>
-                  </div>
+            </div>
+              </div>
+            </div>
                 ))}
               </div>
             </div>
@@ -248,7 +248,7 @@ const Home: React.FC = () => {
             >
               <ChevronRight size={24} />
             </button>
-          </div>
+              </div>
 
           <div className="text-center mt-8">
             <Link
@@ -303,7 +303,7 @@ const Home: React.FC = () => {
             <p className="text-lg text-secondary-600 max-w-3xl mx-auto mb-8">
               With nearly a decade of experience in the Washington and Oregon real estate markets, I bring not only strong market knowledge but also a calm, steady presence during what can be a significant life transition. I'm here to guide you every step of the way with honesty, integrity, and attention to detail.
             </p>
-            <Link 
+            <Link
               to="/about"
               className="btn-outline"
             >
@@ -319,10 +319,10 @@ const Home: React.FC = () => {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-secondary-900 mb-4">
               Are You Interested in Buying or Selling a Home?
-            </h2>
+          </h2>
             <p className="text-lg text-secondary-600">
               Get started with a free consultation
-            </p>
+          </p>
           </div>
           <div className="bg-secondary-50 p-8 rounded-lg shadow-md">
             <HomeContactForm />
