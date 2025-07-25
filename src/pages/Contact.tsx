@@ -33,8 +33,66 @@ const Contact: React.FC = () => {
     try {
       console.log('Submitting contact form...');
       
+      // Uncomment the following code once the API is deployed
+      /*
+      // Use the contact API endpoint
+      const apiUrl = 'https://tina-realtor-contact-api.vercel.app/contact';
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      console.log('Response received:', response.status);
+      
+      // Get the response text first
+      const responseText = await response.text();
+      console.log('Response text:', responseText.substring(0, 200));
+      
+      // Try to parse it as JSON
+      let result;
+      try {
+        result = responseText ? JSON.parse(responseText) : {};
+      } catch (parseError) {
+        console.error('Error parsing response:', parseError);
+        result = { 
+          error: 'Could not parse server response', 
+          details: responseText.substring(0, 200)
+        };
+      }
+
+      if (response.ok) {
+        console.log('Form submitted successfully');
+        setFormStatus({
+          submitted: true,
+          success: true,
+          message: 'Thank you for your message! We will get back to you shortly.',
+          isLoading: false
+        });
+        setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            interest: '',
+            message: ''
+        });
+      } else {
+        console.error('Form submission failed:', result);
+        setFormStatus({
+          submitted: true,
+          success: false,
+          message: result.error || `Server error (${response.status}). Please try again later.`,
+          isLoading: false
+        });
+      }
+      */
+      
       // Temporary solution: Just simulate a successful submission
-      // This will be replaced with the actual API call once the contact API is set up
+      // Remove this code once the API is deployed
       console.log('Form data:', formData);
       
       // Simulate a delay
