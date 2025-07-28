@@ -39,16 +39,16 @@ const About: React.FC = () => {
               </div>
               <div className="flex gap-4">
                 <a
-                  href="mailto:tina@tinaodell.com"
+                  href="mailto:odellhomesales@gmail.com"
                   className="inline-block bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700 transition-colors"
                 >
                   Contact Me
                 </a>
                 <a
-                  href="tel:503-555-0123"
+                  href="tel:+1-360-270-4160"
                   className="inline-block bg-secondary-200 text-secondary-900 px-6 py-3 rounded-md hover:bg-secondary-300 transition-colors"
                 >
-                  (503) 555-0123
+                  +1 (360) 270-4160
                 </a>
               </div>
             </div>

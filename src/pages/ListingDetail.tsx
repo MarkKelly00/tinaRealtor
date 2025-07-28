@@ -103,8 +103,8 @@ const ListingDetail: React.FC = () => {
     mlsNumber: 'MLS2110240',
     listingAgent: {
       name: 'Tina O\'Dell',
-      phone: '(503) 555-0123',
-      email: 'tina@tinaodell.com'
+      phone: '+1 (360) 270-4160',
+      email: 'odellhomesales@gmail.com'
     }
   };
 

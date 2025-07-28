@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { Search, MapPin, Bed, Bath, Square, ChevronLeft, ChevronRight, Star, ArrowRight } from 'lucide-react';
 import heroDesktop from '../assets/hoodHero-Desktop.png';
 import heroMobile from '../assets/hoodHero-Mobile.png';
+import HomeContactForm from '../components/contact/HomeContactForm';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-
+  
   // Mock data for featured properties
   const featuredProperties = [
     {
@@ -322,7 +323,7 @@ const Home: React.FC = () => {
           </h2>
             <p className="text-lg text-secondary-600">
               Get started with a free consultation
-          </p>
+            </p>
           </div>
           <div className="bg-secondary-50 p-8 rounded-lg shadow-md">
             <HomeContactForm />
@@ -332,127 +333,5 @@ const Home: React.FC = () => {
     </div>
   );
 };
-
-const HomeContactForm: React.FC = () => {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        interest: '',
-        message: ''
-      });
-    
-      const [formStatus, setFormStatus] = useState({
-        submitted: false,
-        success: false,
-        message: ''
-      });
-    
-      const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: value
-        }));
-      };
-    
-      const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setFormStatus({ submitted: false, success: false, message: '' });
-    
-        try {
-          const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-          });
-    
-          const result = await response.json();
-    
-          if (response.ok) {
-            setFormStatus({
-              submitted: true,
-              success: true,
-              message: 'Thank you for your message! We will get back to you shortly.'
-            });
-            setFormData({
-                firstName: '',
-                lastName: '',
-                email: '',
-                phone: '',
-                interest: '',
-                message: ''
-            });
-          } else {
-            setFormStatus({
-              submitted: true,
-              success: false,
-              message: result.error || 'An unexpected error occurred. Please try again.'
-            });
-          }
-        } catch (error) {
-          setFormStatus({
-            submitted: true,
-            success: false,
-            message: 'An error occurred while submitting the form. Please check your connection and try again.'
-          });
-        }
-      };
-    
-      return (
-        <>
-            {formStatus.submitted && (
-                <div 
-                  className={`p-4 mb-4 rounded-md ${formStatus.success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
-                  role="alert"
-                >
-                  {formStatus.message}
-                </div>
-            )}
-            <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                <label htmlFor="home-firstName" className="block text-sm font-medium text-secondary-700">First Name</label>
-                <input type="text" name="firstName" id="home-firstName" value={formData.firstName} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
-                </div>
-                <div>
-                <label htmlFor="home-lastName" className="block text-sm font-medium text-secondary-700">Last Name</label>
-                <input type="text" name="lastName" id="home-lastName" value={formData.lastName} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
-                </div>
-            </div>
-            <div>
-                <label htmlFor="home-email" className="block text-sm font-medium text-secondary-700">Email</label>
-                <input type="email" name="email" id="home-email" value={formData.email} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
-            </div>
-            <div>
-                <label htmlFor="home-phone" className="block text-sm font-medium text-secondary-700">Phone</label>
-                <input type="tel" name="phone" id="home-phone" value={formData.phone} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"/>
-            </div>
-            <div>
-                <label htmlFor="home-interest" className="block text-sm font-medium text-secondary-700">I'm interested in...</label>
-                <select name="interest" id="home-interest" value={formData.interest} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-secondary-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
-                <option value="">Select an option</option>
-                <option value="Buying">Buying a home</option>
-                <option value="Selling">Selling a home</option>
-                <option value="CMA">Requesting a CMA</option>
-                <option value="General">General inquiry</option>
-                </select>
-            </div>
-            <div>
-                <label htmlFor="home-message" className="block text-sm font-medium text-secondary-700">Message</label>
-                <textarea name="message" id="home-message" rows={4} value={formData.message} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"></textarea>
-            </div>
-            <div>
-                <button type="submit" className="w-full bg-primary-600 text-white py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                Get Started
-                </button>
-            </div>
-            </form>
-        </>
-      );
-}
 
 export default Home; 

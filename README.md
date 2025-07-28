@@ -8,7 +8,7 @@ A professional, mobile-friendly real estate website built with React, TypeScript
 - **Responsive Design**: Mobile-first approach with clean, modern UI
 - **Property Listings**: Integration-ready for IDX Broker and RMLS data
 - **Client Portal**: Authenticated user dashboard for managing favorites
-- **Lead Capture**: Contact forms with KVCORE integration capability
+- **Lead Capture**: Contact forms with Cloze CRM integration capability
 - **Authentication**: Firebase Auth for secure user management
 
 ### Pages & Components
@@ -80,8 +80,8 @@ A professional, mobile-friendly real estate website built with React, TypeScript
 - Search and filter components are ready for MLS data
 - Property detail pages will be added with IDX widgets
 
-### KVCORE Integration (Coming Soon)
-- Contact forms are ready for KVCORE webhook integration
+### Cloze CRM Integration (Coming Soon)
+- Contact forms are ready for Cloze CRM webhook integration
 - Lead capture functionality prepared for CRM connection
 - Analytics tracking ready for implementation
 
@@ -127,7 +127,7 @@ The website is fully responsive and optimized for:
 
 ### Phase 2 (Next)
 - [ ] IDX Broker integration for live listings
-- [ ] KVCORE lead capture integration
+- [ ] Cloze CRM lead capture integration
 - [ ] Favorites system with Firestore
 - [ ] QR code generation for listings
 
@@ -165,7 +165,7 @@ VITE_FIREBASE_PROJECT_ID=your-project-id
 
 For questions or support regarding this website:
 - Email: odellhomesales@gmail.com
-- Phone: (360) 270-4160
+- Phone: +1 (360) 270-4160
 
 ## 📄 License
 
